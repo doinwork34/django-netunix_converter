@@ -21,4 +21,16 @@ class dotnet_unix(object):
 			unix = times - dotnet
 			dotnettimestamp = (((unix.days*60*60*24 + unix.seconds)*1000 + unix.microseconds)*100)*100
 			return dotnettimestamp
+	def from_unix(self, unix):
+		dotnet = datetime(1,1,1)
+		g = datetime.fromtimestamp(float(unix))
+		d = g - dotnet
+		dotnettimestamp = (((d.days*60*60*24 + d.seconds)*1000 + d.microseconds)*100)*100
+		return dotnettimestamp
+		
+	def from_dotnet(self, dotnet):
+		delta_epoch = datetime(1970,1,1)-datetime(1,1,1)
+		desec=timedelta.total_seconds(delta_epoch)
+		dotnettimestamp = (dotnet/10000000) - desec
+		return dotnettimestamp
 # Create your views here.
